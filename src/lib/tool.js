@@ -149,7 +149,7 @@ export function JSONStringify(stringObject, formatOption = '\t', replaceString =
   cache = null;
   return returnStringObject;
 }
-window.JSON.stringify=JSONStringify;
+
 /**
  * get an object's all keys ignore whether they are not enumerable
  */

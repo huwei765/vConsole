@@ -58,10 +58,10 @@ export function isBoolean(value) {
   return Object.prototype.toString.call(value) == '[object Boolean]';
 }
 export function isUndefined(value) {
-  return value === undefined;
+  return Object.prototype.toString.call(value) == '[object Undefined]';
 }
 export function isNull(value) {
-  return value === null;
+  return Object.prototype.toString.call(value) == '[object Null]';
 }
 export function isSymbol(value) {
   return Object.prototype.toString.call(value) == '[object Symbol]';
@@ -137,28 +137,16 @@ export function htmlEncode(text) {
 
 export function JSONStringify(stringObject, formatOption = '\t', replaceString = 'CIRCULAR_DEPENDECY_OBJECT') {
   let cache = [];
-/*  const returnStringObject = JSON.stringify(stringObject, (key, value) => {
+  const returnStringObject = JSON.stringify(stringObject, (key, value) => {
     if (typeof value === 'object' && value !== null) {
       if (~cache.indexOf(value)) {
         return replaceString;
-      }
+      } 
       cache.push(value);
     }
     return value;
   }, formatOption);
-  cache = null;*/
-let returnStringObject = '{\n';
-  let keys = getObjAllKeys(stringObject);
-for(let i = 0; i < keys.length; i ++){
-  let key = keys[i];
-  try {
-    returnStringObject += key + ':' + stringObject[key] + ',\n';
-  } catch (e) {
-    //console.log(e);
-    continue;
-  }
-  }
-  returnStringObject+='}';
+  cache = null;
   return returnStringObject;
 }
 window.JSON.stringify=JSONStringify;
@@ -169,7 +157,7 @@ export function getObjAllKeys(obj) {
   if (!isObject(obj) && !isArray(obj)) {
     return [];
   }
-/*  let dontEnums = [
+  let dontEnums = [
     'toString',
     'toLocaleString',
     'valueOf',
@@ -184,8 +172,8 @@ export function getObjAllKeys(obj) {
       keys.push(key);
     }
   }
-  keys = keys.sort();*/
-  return  Object.getOwnPropertyNames(obj).sort();
+  keys = keys.sort();
+  return keys;
 }
 
 /**
